@@ -352,7 +352,7 @@ function createRichTextModal(richText: string) {
         tip.style.fontSize = "0.9rem";
         tip.style.color = "#ff5555";
         tip.style.textAlign = "center";
-        tip.textContent = "⚠️ Your text exceeds the Pls Donate character limit. Try shortening your text, or removing gradients if you have any.";
+        tip.textContent = "⚠️ Your text exceeds 650 characters. If this is an issue, try shortening your text, or removing gradients if you have any.";
         textLength.appendChild(tip);
     }
 
