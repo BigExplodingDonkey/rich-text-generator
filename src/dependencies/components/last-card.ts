@@ -186,7 +186,7 @@ function addMiscellaneousStyle(text: string, bold: boolean, italic: boolean, und
 function replaceIconCodes(text: string): { text: string; replaced: string[] } {
     const replaced: string[] = [];
 
-    const finalText: string = text.replace(/&&(.+?)&&/g, (match, iconText) => {
+    const finalText: string = text.replace(/&&(.+?)&&/g, (_match, iconText) => {
         replaced.push(iconText);
         return "⸘";
     });
