@@ -36,19 +36,19 @@ export function createCardContainer(): HTMLElement {
     cardContainer.appendChild(textCard);
 
     cardContainer.appendChild(divider1);
-    cardContainer.appendChild(robloxIconCard);
-
-    cardContainer.appendChild(divider2);
     cardContainer.appendChild(fontCard);
 
-    cardContainer.appendChild(divider3);
+    cardContainer.appendChild(divider2);
     cardContainer.appendChild(highlightCard);
 
-    cardContainer.appendChild(divider4);
+    cardContainer.appendChild(divider3);
     cardContainer.appendChild(strokeCard);
 
-    cardContainer.appendChild(divider5);
+    cardContainer.appendChild(divider4);
     cardContainer.appendChild(miscellaneousCard);
+
+    cardContainer.appendChild(divider5);
+    cardContainer.appendChild(robloxIconCard);
 
     cardContainer.appendChild(divider6);
     cardContainer.appendChild(lastCard);
