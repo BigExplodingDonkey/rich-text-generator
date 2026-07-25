@@ -68,9 +68,11 @@ function addGradient(
     let strokeIndex = 0;
     let highlightIndex = 0;
 
+    const characters = Array.from(text);
+
     // Generate gradient text one character at a time
-    for (let i = 0; i < text.length; i++) {
-        let char = text[i];
+    for (let i = 0; i < characters.length; i++) {
+        let char = characters[i];
         let currentText = char;
 
         // Check if we should skip adding color to icon placeholders
