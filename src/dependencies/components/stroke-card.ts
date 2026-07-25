@@ -117,7 +117,7 @@ export function createStrokeCard(): HTMLDivElement {
         createOption("gradient", "Gradient")
     ]
     const colorTypeDropdown = createDropdown("color-type-dropdown", colorTypeOptions);
-    const labeledColorTypeDropdown = createLabeledInput("Color Type", colorTypeDropdown, "Stroke", "The type of color your stroke has. 'None' applies no stroke, 'Solid' applies a single color stroke, and 'Gradient' blends two colors across the text stroke.\n\nKeep in mind that gradients add a lot of length to your text, which can cause it to exceed the booth character limit if your text is too long.");
+    const labeledColorTypeDropdown = createLabeledInput("Color Type", colorTypeDropdown, "Stroke", "The type of color your stroke has. 'None' applies no stroke, 'Solid' applies a single color stroke, and 'Gradient' blends two colors across the text stroke.\n\nKeep in mind that gradients add a lot of length to your text, which can cause it to exceed the character limit if your text is too long.");
 
     // Create size input
     const thicknessInput = document.createElement("input");
@@ -155,7 +155,7 @@ export function createStrokeCard(): HTMLDivElement {
         createOption("scaled", "Scaled")
     ];
     const sizingDropdown = createDropdown("sizing-dropdown", sizingOptions);
-    const labeledSizingDropdown = createLabeledInput("Sizing", sizingDropdown, "Stroke", "'Fixed' keeps the stroke thickness exactly what you set. 'Scaled' grows or shrinks based on the text length or booth size.");
+    const labeledSizingDropdown = createLabeledInput("Sizing", sizingDropdown, "Stroke", "'Fixed' keeps the stroke thickness exactly what you set. 'Scaled' grows or shrinks based on the surface (like your sign) size or text size.");
 
     // Add contents to the card
     card.appendChild(label);

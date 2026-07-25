@@ -157,7 +157,7 @@ export function createFontCard(): HTMLDivElement {
         createOption("gradient", "Gradient")
     ]
     const colorTypeDropdown = createDropdown("color-type-dropdown", colorTypeOptions);
-    const labeledColorTypeDropdown = createLabeledInput("Color Type", colorTypeDropdown, "Font", "The type of color your font has. 'None' leaves it unchanged, 'Solid' applies a single color, and 'Gradient' blends two colors across the text.\n\nKeep in mind that gradients add a lot of length to your text, which can cause it to exceed the booth character limit if your text is too long.");
+    const labeledColorTypeDropdown = createLabeledInput("Color Type", colorTypeDropdown, "Font", "The type of color your font has. 'None' leaves it unchanged, 'Solid' applies a single color, and 'Gradient' blends two colors across the text.\n\nKeep in mind that gradients add a lot of length to your text, which can cause it to exceed the character limit if your text is too long.");
 
     // Create size checkbox
     const sizeCheckOptions: HTMLElement[] = [
