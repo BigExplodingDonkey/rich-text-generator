@@ -49,7 +49,7 @@ function isInvisible(char: string): boolean {
 
 // Add gradients to the text first
 function addGradient(
-        text: string,
+        text: string, setIconColor: string, // yes or no
         font: boolean, fontColor1: string, fontColor2: string,
         highlight: boolean, highlightColor1: string, highlightColor2: string, highlightTransparency: string,
         stroke: boolean, strokeColor1: string, strokeColor2: string, strokeThickness: string, strokeTransparency: string, strokeJoins: string, strokeSizing: string
@@ -73,15 +73,18 @@ function addGradient(
         let char = text[i];
         let currentText = char;
 
+        // Check if we should skip adding color to icon placeholders
+        const skipIcon = setIconColor === "no" && char === "⸘";
+
         // Add chosen font gradient to current (non invis) character
-        if (fontGradient.length !== 0 && char !== " " && !isInvisible(char)) {
+        if (fontGradient.length !== 0 && char !== " " && !isInvisible(char) && !skipIcon) {
             currentText = '<font color=\"' + fontGradient[fontIndex] + '\">' + currentText + '</font>';
 
             fontIndex++;
         }
 
         // Add chosen highlight gradient to current (non invis but not non space) character
-        if (highlightGradient.length !== 0 && !isInvisible(char)) {
+        if (highlightGradient.length !== 0 && !isInvisible(char) && !skipIcon) {
             let startTag = '<mark color=\"' + highlightGradient[highlightIndex] + '\"'
             startTag = (highlightTransparency !== "0") ? startTag + ' transparency=\"' + highlightTransparency + '\"' : startTag;
             startTag += ">";
@@ -94,7 +97,7 @@ function addGradient(
         }
 
         // Add chosen stroke gradient to current (non invis) character
-        if (strokeGradient.length !== 0 && char !== " " && !isInvisible(char)) {
+        if (strokeGradient.length !== 0 && char !== " " && !isInvisible(char) && !skipIcon) {
             let startTag = '<stroke color=\"' + strokeGradient[strokeIndex] + '\" thickness=\"' + strokeThickness + '\"';
             startTag = (strokeTransparency !== "0") ? startTag + ' transparency=\"' + strokeTransparency + '\"' : startTag;
             startTag = (strokeJoins !== "miter") ? startTag + ' joins=\"' + strokeJoins + '\"' : startTag;
@@ -179,9 +182,54 @@ function addMiscellaneousStyle(text: string, bold: boolean, italic: boolean, und
     return finalText;
 }
 
+// Replace icon text with special unicode character ⸘ and return resulting string + replaced content
+function replaceIconCodes(text: string): { text: string; replaced: string[] } {
+    const replaced: string[] = [];
+
+    const finalText: string = text.replace(/&&(.+?)&&/g, (match, iconText) => {
+        replaced.push(iconText);
+        return "⸘";
+    });
+
+    return {
+        text: finalText,
+        replaced
+    }
+}
+
+// Replace icon text with special unicode character ⸘ and return resulting string + replaced content
+function restoreIconCodes(text: string, replaced: string[]): string {
+    let index = 0;
+
+     return text.replace(/⸘/g, () => {
+        return `&&${replaced[index++]}&&`;
+    });
+}
+
+// Replace icon double ampersands with BuilderIcon font tags
+function addBuilderIconFont(text: string) {
+    let textFinal: string = text;
+
+    let match: RegExpExecArray | null;
+
+    // Repeat while there's still icons left to add the font to
+    while ((match = /&&.+?&&/.exec(textFinal)) !== null) {
+        let start = match?.index;
+        let end = start + match[0].length;
+
+        textFinal = textFinal.slice(0, start) + "<font family=\"rbxasset://LuaPackages/Packages/_Index/BuilderIcons/BuilderIcons/BuilderIcons.json\">" + textFinal.slice(start + 2, end - 2) + "</font>" + (end != textFinal.length - 1 ? textFinal.slice(end) : "");
+    }
+
+    return textFinal;
+}
+
 // Generate rich text based off style selections
 function generateRichText(): string {
-    let text = (document.getElementById("booth-text") as HTMLTextAreaElement)?.value;
+    let {text, replaced}: {text: string, replaced: string[]} = replaceIconCodes((document.getElementById("booth-text") as HTMLTextAreaElement)?.value);
+
+    // Icons style
+    const iconCard = document.getElementById("icon-card");
+    const sameColorAsText = (iconCard?.querySelector("#icon-color-dropdown") as HTMLSelectElement)?.value;
 
     // Font style
     const fontCard = document.getElementById("font-card");
@@ -228,7 +276,7 @@ function generateRichText(): string {
     if (colorTypeValues.includes("gradient")) {
         const [fontGradientEnabled, highlightGradientEnabled, strokeGradientEnabled] = colorTypeValues.map(val => val === "gradient");
         text = addGradient(
-            text,
+            text, sameColorAsText,
             fontGradientEnabled, fontColor1, fontColor2,
             highlightGradientEnabled, highlightColor1, highlightColor2, highlightTransparency,
             strokeGradientEnabled, strokeColor1, strokeColor2, strokeThickness, strokeTransparency, strokeJoins, strokeSizing
@@ -259,6 +307,13 @@ function generateRichText(): string {
     if (miscellaneousValues.includes("yes")) {
         const [boldEnabled, italicEnabled, underlineEnabled, strikethroughEnabled, smallcapsEnabled] = miscellaneousValues.map(val => val === "yes");
         text = addMiscellaneousStyle(text, boldEnabled, italicEnabled, underlineEnabled, strikethroughEnabled, smallcapsEnabled);
+    }
+
+    let restoredText = restoreIconCodes(text, replaced);
+
+    // Check for &&text&& pattern, and if it exists then create proper icon tags
+    if (/&&.+?&&/.exec(restoredText)) {
+        text = addBuilderIconFont(restoredText);
     }
 
     return text;

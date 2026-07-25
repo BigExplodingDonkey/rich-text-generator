@@ -4,11 +4,11 @@ export function createTextCard(): HTMLDivElement {
 
     // Create label and textbox
     const label = document.createElement("h2");
-    label.textContent = "Booth Text";
+    label.textContent = "Your Text";
 
     const textBox = document.createElement("textarea");
     textBox.id = "booth-text";
-    textBox.placeholder = "Enter your booth text here...";
+    textBox.placeholder = "Enter your text here...";
     textBox.style.resize = 'none';
 
     // Add proper contents to the card

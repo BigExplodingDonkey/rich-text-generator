@@ -1,6 +1,6 @@
 import './style.css'
-import { createHeader } from './dependencies/header.ts'
-import { createCardContainer } from './dependencies/card-container.ts'
+import { createHeader } from './dependencies/components/header.ts'
+import { createCardContainer } from './dependencies/components/card-container.ts'
 
 const app = document.getElementById('app');
 if (!app) {

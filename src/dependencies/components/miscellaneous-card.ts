@@ -1,5 +1,5 @@
-import { createOption, createDropdown } from './Dropdown.ts'
-import { createLabeledInput } from './LabelInput.ts'
+import { createOption, createDropdown } from '../helpers/Dropdown.ts'
+import { createLabeledInput } from '../helpers/LabelInput.ts'
 
 export function createMiscellaneousCard(): HTMLDivElement {
     const card = document.createElement("div");

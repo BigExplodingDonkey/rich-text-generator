@@ -3,7 +3,7 @@ export function createHeader(): HTMLElement {
     const nav = document.createElement("nav");
     const ul = document.createElement("ul");
     ul.innerHTML = `
-    <li><b>PD Booth Text Generator</b></li>
+    <li><b>Rich Text Generator</b></li>
     <li><a href="https://www.discord.gg/VgCjM8agKC">
         <img src="DiscordIcon.png" class="nav-icon"> Discord Server
     </a></li>

@@ -85,3 +85,39 @@ export function createLabeledInput(labelText: string, input: HTMLElement, styleT
 
     return row;
 }
+
+export function createTextWithInfoModal(text: string, infoLabel: string, infoText: string): HTMLDivElement {
+    const row = document.createElement("div");
+    row.style.display = "flex";
+    row.style.alignItems = "center";
+    row.style.gap = "1rem";
+
+    const textDiv = document.createElement("div");
+    textDiv.innerHTML = text;
+
+    row.appendChild(textDiv);
+
+    // Add ? icon if infoText is provided
+    const infoBtn = document.createElement("button");
+    infoBtn.type = "button";
+    infoBtn.textContent = "?";
+    infoBtn.style.width = "1.25rem";
+    infoBtn.style.height = "1.25rem";
+    infoBtn.style.borderRadius = "50%";
+    infoBtn.style.border = "none";
+    infoBtn.style.backgroundColor = "#5c8eff";
+    infoBtn.style.color = "#fff";
+    infoBtn.style.cursor = "pointer";
+    infoBtn.style.fontSize = "0.8rem";
+    infoBtn.style.display = "inline-flex";
+    infoBtn.style.alignItems = "center";
+    infoBtn.style.justifyContent = "center";
+
+    infoBtn.addEventListener("click", () => {
+        showInfoModal(infoLabel, infoText);
+    });
+
+    row.appendChild(infoBtn);
+
+    return row;
+}
