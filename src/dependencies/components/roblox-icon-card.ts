@@ -11,7 +11,7 @@ export function createRobloxIconCard(): HTMLDivElement {
     label.textContent = "Icons";
 
     // Create instructions
-    const instructionsText = `Use <a href="URL">the icon code list</a> to insert icons into the text.`
+    const instructionsText = `Use <a href="https://kaan650.github.io/builder-icons/">the icon code list</a> to insert icons into the text.`
     const detailedInstructions = `Once you have an icon code from the icon code list, like "robux" (code for the robux icon), type that code where you want it to be placed in your text, surrounded by 2 & symbols on each side. Please keep in mind that some code words get filtered.
     
     Example text:
